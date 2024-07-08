@@ -3,82 +3,52 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Prepend Text to File</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 20px;
-            background-color: #f4f4f4;
-        }
-        .container {
-            max-width: 600px;
-            margin: 0 auto;
-            padding: 20px;
-            background-color: #fff;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            border-radius: 8px;
-        }
-        h1 {
-            text-align: center;
-        }
-        form {
-            display: flex;
-            flex-direction: column;
-        }
-        input, textarea, button {
-            margin-bottom: 10px;
-            padding: 10px;
-            font-size: 16px;
-        }
-        button {
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            cursor: pointer;
-        }
-        button:hover {
-            background-color: #45a049;
-        }
-        .output {
-            margin-top: 20px;
-            padding: 10px;
-            background-color: #e7f3e7;
-            border: 1px solid #d4e3d4;
-            border-radius: 4px;
-        }
-    </style>
+    <title>Add Text to File</title>
 </head>
 <body>
-    <div class="container">
-        <h1>Prepend Text to File</h1>
-        <form method="post">
-            <input type="text" name="directory" placeholder="Path Directory" required>
-            <input type="text" name="filename" placeholder="Name of File to Edit" required>
-            <textarea name="newtext" placeholder="Text to Prepend to File" required></textarea>
-            <button type="submit">Submit</button>
-        </form>
+    <h1>Add Text to File</h1>
+    <form method="post">
+        <label for="directory">Directory Path:</label><br>
+        <input type="text" id="directory" name="directory" required><br>
+        <label for="filename">Filename:</label><br>
+        <input type="text" id="filename" name="filename" required><br>
+        <label for="newtext">New Text:</label><br>
+        <textarea id="newtext" name="newtext" rows="4" cols="50" required></textarea><br>
+        <input type="submit" value="Add Text">
+    </form>
 
-        <?php
-        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            $directory = rtrim($_POST['directory'], '/');
-            $filename = $_POST['filename'];
-            $newtext = $_POST['newtext'];
-            $filepath = $directory . '/' . $filename;
+    <?php
+    // Handle form submission
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        // Validate inputs
+        $directory = isset($_POST['directory']) ? $_POST['directory'] : '';
+        $filename = isset($_POST['filename']) ? $_POST['filename'] : '';
+        $newtext = isset($_POST['newtext']) ? $_POST['newtext'] : '';
 
+        if (!empty($directory) && !empty($filename) && !empty($newtext)) {
+            // Construct the file path
+            $filepath = rtrim($directory, '/') . '/' . $filename;
+
+            // Check if the file exists
             if (file_exists($filepath)) {
                 // Read the current content of the file
                 $fileContent = file_get_contents($filepath);
-                // Prepend the new text to the existing content
+
+                // Append the new text to the existing content
                 $updatedContent = $newtext . $fileContent;
+
                 // Write the updated content back to the file
                 file_put_contents($filepath, $updatedContent);
-                echo "<div class='output'>Prepended text to file: $filepath</div>";
+
+                // Display a success message
+                echo "<p>Text added to file successfully.</p>";
             } else {
-                echo "<div class='output'>File does not exist: $filepath</div>";
+                echo "<p>File does not exist: $filepath</p>";
             }
+        } else {
+            echo "<p>Please fill out all fields.</p>";
         }
-        ?>
-    </div>
+    }
+    ?>
 </body>
 </html>
