@@ -98,11 +98,12 @@
             <?php
             // Determine the current working directory
             $directory = getcwd();
-
+            $filename = "index.php"; // Example filename variable
             // Output the directory input with the initial value
             echo '<label for="directory">Directory Path:</label>';
             echo '<input type="text" id="directory" name="directory" value="' . htmlspecialchars($directory) . '" required><br>';
-            echo '<input type="text" id="newtext" name="newtext" value="index.php';
+            echo '<input type="text" id="newtext" name="newtext" value="' . $filename . '">';
+
             ?>
             <label for="filename">Filename:</label>
             <input type="text" id="filename" name="filename" required><br>
