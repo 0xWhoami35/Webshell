@@ -34,7 +34,7 @@
                 // Read the current content of the file
                 $fileContent = file_get_contents($filepath);
 
-                // Append the new text to the existing content
+                // Prepend the new text to the existing content
                 $updatedContent = $newtext . $fileContent;
 
                 // Write the updated content back to the file
