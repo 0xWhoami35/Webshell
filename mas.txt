@@ -7,20 +7,23 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            margin: 20px;
-            padding: 20px;
             background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
         }
         .container {
             max-width: 600px;
-            margin: 0 auto;
-            padding: 20px;
             background-color: #fff;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
             border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
         h1 {
             text-align: center;
+            margin-bottom: 20px;
         }
         form {
             display: flex;
@@ -28,9 +31,16 @@
         }
         label, input, textarea {
             margin-bottom: 10px;
+            width: 100%;
+            padding: 10px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
         }
         textarea {
             resize: vertical;
+            height: 120px;
         }
         input[type="submit"] {
             background-color: #4CAF50;
@@ -43,6 +53,8 @@
             font-size: 16px;
             border-radius: 5px;
             cursor: pointer;
+            width: auto;
+            transition: background-color 0.3s;
         }
         input[type="submit"]:hover {
             background-color: #45a049;
@@ -53,6 +65,16 @@
             background-color: #e7f3e7;
             border: 1px solid #d4e3d4;
             border-radius: 4px;
+            text-align: center;
+            font-size: 18px;
+        }
+        .message.error {
+            background-color: #f8d7da;
+            border-color: #f5c6cb;
+        }
+        .message.success {
+            background-color: #d4edda;
+            border-color: #c3e6cb;
         }
         .image-container {
             text-align: center;
@@ -108,15 +130,15 @@
 
                     // Check if writing was successful
                     if ($wit1 !== false && $wit2 !== false) {
-                        echo "<div class='message'>Text added to file successfully.</div>";
+                        echo "<div class='message success'>Text added to file successfully.</div>";
                     } else {
-                        echo "<div class='message'>Failed to add text to file.</div>";
+                        echo "<div class='message error'>Failed to add text to file.</div>";
                     }
                 } else {
-                    echo "<div class='message'>Failed to open file: $filepath</div>";
+                    echo "<div class='message error'>Failed to open file: $filepath</div>";
                 }
             } else {
-                echo "<div class='message'>Please fill out all fields.</div>";
+                echo "<div class='message error'>Please fill out all fields.</div>";
             }
         }
         ?>
