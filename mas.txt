@@ -54,10 +54,23 @@
             border: 1px solid #d4e3d4;
             border-radius: 4px;
         }
+        .image-container {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .image-container img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
     </style>
 </head>
 <body>
     <div class="container">
+        <div class="image-container">
+            <img src="https://example.com/your-image.jpg" alt="Image" width="400">
+        </div>
         <h1>Add Text to File</h1>
         <form method="post">
             <label for="directory">Directory Path:</label>
