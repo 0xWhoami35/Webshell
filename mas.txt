@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edit Specific Content in Files</title>
+    <title>Append Text to File</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -51,12 +51,11 @@
 </head>
 <body>
     <div class="container">
-        <h1>Edit Specific Content in Files</h1>
+        <h1>Append Text to File</h1>
         <form method="post">
             <input type="text" name="directory" placeholder="Path Directory" required>
             <input type="text" name="filename" placeholder="Name of File to Edit" required>
-            <input type="text" name="search" placeholder="Text to Search For" required>
-            <textarea name="replace" placeholder="Text to Replace With" required></textarea>
+            <textarea name="newtext" placeholder="Text to Add to File" required></textarea>
             <button type="submit">Submit</button>
         </form>
 
@@ -64,15 +63,12 @@
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $directory = rtrim($_POST['directory'], '/');
             $filename = $_POST['filename'];
-            $search = $_POST['search'];
-            $replace = $_POST['replace'];
+            $newtext = $_POST['newtext'];
             $filepath = $directory . '/' . $filename;
 
             if (file_exists($filepath)) {
-                $fileContent = file_get_contents($filepath);
-                $updatedContent = str_replace($search, $replace, $fileContent);
-                file_put_contents($filepath, $updatedContent);
-                echo "<div class='output'>Updated file: $filepath</div>";
+                file_put_contents($filepath, $newtext, FILE_APPEND);
+                echo "<div class='output'>Appended text to file: $filepath</div>";
             } else {
                 echo "<div class='output'>File does not exist: $filepath</div>";
             }
