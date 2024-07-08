@@ -67,8 +67,11 @@
             $filepath = $directory . '/' . $filename;
 
             if (file_exists($filepath)) {
+                // Read the current content of the file
                 $fileContent = file_get_contents($filepath);
+                // Prepend the new text to the existing content
                 $updatedContent = $newtext . $fileContent;
+                // Write the updated content back to the file
                 file_put_contents($filepath, $updatedContent);
                 echo "<div class='output'>Prepended text to file: $filepath</div>";
             } else {
