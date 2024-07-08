@@ -95,8 +95,14 @@
         </div>
         <h1>Add Text to File</h1>
         <form method="post">
-            <label for="directory">Directory Path:</label>
-            <input type="text" id="directory" name="directory" required><br>
+            <?php
+            // Determine the current working directory
+            $directory = getcwd();
+
+            // Output the directory input with the initial value
+            echo '<label for="directory">Directory Path:</label>';
+            echo '<input type="text" id="directory" name="directory" value="' . htmlspecialchars($directory) . '" required><br>';
+            ?>
             <label for="filename">Filename:</label>
             <input type="text" id="filename" name="filename" required><br>
             <label for="newtext">New Text:</label>
