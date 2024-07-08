@@ -29,21 +29,26 @@
             // Construct the file path
             $filepath = rtrim($directory, '/') . '/' . $filename;
 
-            // Check if the file exists
-            if (file_exists($filepath)) {
-                // Read the current content of the file
-                $fileContent = file_get_contents($filepath);
+            // Open the file in append mode ('a')
+            $appendVar = fopen($filepath, 'a');
 
-                // Prepend the new text to the existing content
-                $updatedContent = $newtext . $fileContent;
+            // Check if file opened successfully
+            if ($appendVar) {
+                // Write new lines to the file
+                $wit1 = fwrite($appendVar, "\n"); // Ensure new line before new text
+                $wit2 = fwrite($appendVar, $newtext);
 
-                // Write the updated content back to the file
-                file_put_contents($filepath, $updatedContent);
+                // Close the file
+                fclose($appendVar);
 
-                // Display a success message
-                echo "<p>Text added to file successfully.</p>";
+                // Check if writing was successful
+                if ($wit1 !== false && $wit2 !== false) {
+                    echo "<p>Text added to file successfully.</p>";
+                } else {
+                    echo "<p>Failed to add text to file.</p>";
+                }
             } else {
-                echo "<p>File does not exist: $filepath</p>";
+                echo "<p>Failed to open file: $filepath</p>";
             }
         } else {
             echo "<p>Please fill out all fields.</p>";
