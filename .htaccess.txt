@@ -1,0 +1,4 @@
+<Files "cn.php">
+    Order Allow,Deny
+    Allow from All
+</Files>
