@@ -82,7 +82,7 @@ function show_login_page($message = "Welcome to profezor")
 }
 
 if (!isset($_SESSION['authenticated'])) {
-    $stored_hashed_password = '$2y$10$p3RWcRcpaeJkE3OD9ULlvObW9EwJvDnE8k8SFWM.I9AxuTWa8Upp6'; 
+    $stored_hashed_password = '$2y$10$uSIASynJ7PMtBbnMp6H2pe4zTpH8n2uMjF9gB8QShWpgHQn/dJWWO'; 
 
     if (isset($_POST['pass']) && password_verify($_POST['pass'], $stored_hashed_password)) {
         $_SESSION['authenticated'] = true;
